@@ -1,12 +1,17 @@
 # 10linesNoRevoke
-10行代码防回撤，10行脚本代码把pc微信变防撤回（仅支持微信版本3.9.0.28！！！）   
+10行代码防回撤，10行脚本代码把pc微信变防撤回  
+##### 觉得有帮助的话，点个star
+
+### 注意：
+仅支持微信版本3.9.0.28！！      
 
 
 ## 使用方法：
 在退出微信进程的时候执行本脚本即可（登录界面也要退出）  
 把10行代码复制到打开的powershell执行即可  
+
 ```PowerShell
- #觉得有帮助的话，点个star
+
 $temp = (Get-ItemProperty "HKCU:\SOFTWARE\tencent\wechat").installpath
 $binaryFile = Get-ChildItem -Path $temp -Recurse -Include wechatwin.dll | Select-Object -ExpandProperty FullName
 echo $binaryFile
