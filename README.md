@@ -3,7 +3,20 @@
 ## 使用方法：
 在退出微信进程的时候执行本脚本即可（登录界面也要退出）  
 把10行代码复制到打开的powershell执行即可  
-    
+```PowerShell
+$temp = (Get-ItemProperty "HKCU:\SOFTWARE\tencent\wechat").installpath
+$binaryFile = Get-ChildItem -Path $temp -Recurse -Include wechatwin.dll | Select-Object -ExpandProperty FullName
+echo $binaryFile
+Get-FileHash -LiteralPath $binaryFile
+$bytes  = [System.IO.File]::ReadAllBytes($binaryFile)
+$offset1= 0x00B4B3EA
+$offset2= 0x00B4B419
+$bytes[$offset1]=0xeb
+$bytes[$offset2]=0
+[System.IO.File]::WriteAllBytes($binaryFile, $bytes)
+Get-FileHash -LiteralPath $binaryFile
+```
+
       
 
 ## 执行成功的话，会有下面的2个值
